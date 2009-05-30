@@ -20,8 +20,6 @@ Release: %{release}
 # http://moblin.org/repos/projects/psb-kmd.git
 # DATE=20081006; git archive --format=tar --prefix=psb-kmd-$DATE/ origin/GASTON | gzip > psb-kmd-$DATE.tar.gz
 Source0: %{sname}.tar.gz
-# (blino) 2.6.27 support
-Patch0: psb-kmd-20081006-2.6.27.patch
 License: GPL
 Group: System/Kernel and hardware
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
@@ -44,7 +42,6 @@ DRM driver for the video chipset from the Poulsbo SCH.
 
 %prep
 %setup -q -n %{dname}
-%patch0 -p1
 
 cat > dkms.conf <<EOF
 PACKAGE_NAME=%{module}
