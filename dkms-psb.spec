@@ -20,6 +20,9 @@ Release: %{release}
 # http://moblin.org/repos/projects/psb-kmd.git
 # DATE=20081006; git archive --format=tar --prefix=psb-kmd-$DATE/ origin/GASTON | gzip > psb-kmd-$DATE.tar.gz
 Source0: %{sname}.tar.gz
+# (blino) fix build with 2.6.29
+Patch0: psb-kmd-4.34-current_euid.patch
+Patch1: psb-kmd-4.34-unused_i2c_id.patch
 License: GPL
 Group: System/Kernel and hardware
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
@@ -42,6 +45,8 @@ DRM driver for the video chipset from the Poulsbo SCH.
 
 %prep
 %setup -q -n %{dname}
+%patch0 -p1 -b .current_euid
+%patch1 -p1 -b .unused_i2c_id
 
 cat > dkms.conf <<EOF
 PACKAGE_NAME=%{module}
