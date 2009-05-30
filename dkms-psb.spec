@@ -1,9 +1,17 @@
 %define module psb
 %define name dkms-%{module}
-%define date 20081006
-%define version 0
+%define version 4.34
+%define date 0
 %define release %mkrel 1
+%if %{date}
 %define dkms_ver %{date}-%{release}
+%define sname %{module}-kmd-%{date}
+%define dname %{sname}
+%else
+%define dkms_ver %{version}-%{release}
+%define sname %{module}-kmd_%{version}
+%define dname %{module}-kmd
+%endif
 
 Summary: Poulsbo DRM driver
 Name: %{name}
@@ -11,7 +19,7 @@ Version: %{version}
 Release: %{release}
 # http://moblin.org/repos/projects/psb-kmd.git
 # DATE=20081006; git archive --format=tar --prefix=psb-kmd-$DATE/ origin/GASTON | gzip > psb-kmd-$DATE.tar.gz
-Source0: %{module}-kmd-%{date}.tar.gz
+Source0: %{sname}.tar.gz
 # (blino) 2.6.27 support
 Patch0: psb-kmd-20081006-2.6.27.patch
 License: GPL
@@ -35,7 +43,7 @@ This package contains configuration files to automatically load the
 DRM driver for the video chipset from the Poulsbo SCH.
 
 %prep
-%setup -q -n %{module}-kmd-%{date}
+%setup -q -n %{dname}
 %patch0 -p1
 
 cat > dkms.conf <<EOF
