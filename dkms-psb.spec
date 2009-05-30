@@ -46,7 +46,7 @@ DRM driver for the video chipset from the Poulsbo SCH.
 cat > dkms.conf <<EOF
 PACKAGE_NAME=%{module}
 PACKAGE_VERSION=%{dkms_ver}
-MAKE[0]="make LINUXDIR=\${kernel_source_dir}"
+MAKE[0]="make LINUXDIR=\${kernel_source_dir} DRM_MODULES=psb"
 BUILT_MODULE_NAME[0]=psb
 DEST_MODULE_NAME[0]=psb
 BUILT_MODULE_NAME[1]=drm
