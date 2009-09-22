@@ -23,6 +23,7 @@ Source0: http://ppa.launchpad.net/ubuntu-mobile/ppa/ubuntu/pool/main/p/psb-kerne
 # (blino) fix build with 2.6.29
 Patch0: psb-kmd-4.34-current_euid.patch
 Patch1: psb-kernel-source-4.41.1-i2c-intelfb.patch
+Patch2: psb-kmod-4.41.1_irqreturn.patch
 License: GPL
 Group: System/Kernel and hardware
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
@@ -47,6 +48,7 @@ DRM driver for the video chipset from the Poulsbo SCH.
 %setup -q -n %{dname}
 %patch0 -p1 -b .current_euid
 %patch1 -p1 -b .i2c-intelfb
+%patch2 -p1 -b .irqreturn
 
 cat > dkms.conf <<EOF
 PACKAGE_NAME=%{module}
