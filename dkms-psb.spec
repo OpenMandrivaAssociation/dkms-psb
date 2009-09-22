@@ -1,6 +1,6 @@
 %define module psb
 %define name dkms-%{module}
-%define version 4.34
+%define version 4.41.1
 %define date 0
 %define release %mkrel 1
 %if %{date}
@@ -9,8 +9,8 @@
 %define dname %{sname}
 %else
 %define dkms_ver %{version}-%{release}
-%define sname %{module}-kmd_%{version}
-%define dname %{module}-kmd
+%define sname %{module}-kernel-source_%{version}.orig
+%define dname %{module}-kernel-source-%{version}
 %endif
 
 Summary: Poulsbo DRM driver
@@ -19,7 +19,7 @@ Version: %{version}
 Release: %{release}
 # http://moblin.org/repos/projects/psb-kmd.git
 # DATE=20081006; git archive --format=tar --prefix=psb-kmd-$DATE/ origin/GASTON | gzip > psb-kmd-$DATE.tar.gz
-Source0: %{sname}.tar.gz
+Source0: http://ppa.launchpad.net/ubuntu-mobile/ppa/ubuntu/pool/main/p/psb-kernel-source/%{sname}.tar.gz
 # (blino) fix build with 2.6.29
 Patch0: psb-kmd-4.34-current_euid.patch
 Patch1: psb-kmd-4.34-unused_i2c_id.patch
