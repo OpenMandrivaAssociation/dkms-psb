@@ -2,7 +2,7 @@
 %define name dkms-%{module}
 %define version 4.41.1
 %define date 0
-%define release %mkrel 1
+%define release %mkrel 2
 %if %{date}
 %define dkms_ver %{date}-%{release}
 %define sname %{module}-kmd-%{date}
@@ -26,6 +26,8 @@ Patch1: psb-kernel-source-4.41.1-i2c-intelfb.patch
 Patch2: psb-kmod-4.41.1_irqreturn.patch
 Patch3: psb-kernel-source-4.41.1-agp_memory.patch
 Patch4: psb-kernel-source-4.41.1-dev_set_name.patch
+# rename drm.ko as drm-psb.ko (and make psb.ko depend on drm-psb)
+Patch5:	psb-kernel-source-4.41.1-drmpsb.patch
 License: GPL
 Group: System/Kernel and hardware
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
@@ -53,15 +55,14 @@ DRM driver for the video chipset from the Poulsbo SCH.
 %patch2 -p1 -b .irqreturn
 %patch3 -p1 -b .agp_memory
 %patch4 -p1 -b .dev_set_name
+%patch5 -p1 -b .drmpsb
 
 cat > dkms.conf <<EOF
 PACKAGE_NAME=%{module}
 PACKAGE_VERSION=%{dkms_ver}
 MAKE[0]="make LINUXDIR=\${kernel_source_dir} DRM_MODULES=psb"
 BUILT_MODULE_NAME[0]=psb
-DEST_MODULE_NAME[0]=psb
-BUILT_MODULE_NAME[1]=drm
-DEST_MODULE_NAME[1]=drm-psb
+BUILT_MODULE_NAME[1]=drm-psb
 DEST_MODULE_LOCATION[0]=/kernel/drivers/gpu/drm
 DEST_MODULE_LOCATION[1]=/kernel/drivers/gpu/drm
 AUTOINSTALL=yes
