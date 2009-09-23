@@ -35,18 +35,10 @@ Url: http://git.moblin.org/cgit.cgi/deprecated/psb-kmd/
 BuildArch: noarch
 Requires(post): dkms
 Requires(preun): dkms
+Obsoletes: psb-preload <= 4.41.1-1mdv2010.0
 
 %description
 This is a DRM driver for the video chipset from the Poulsbo SCH.
-
-%package -n %{module}-preload
-Group: System/Kernel and hardware
-Summary: Auto-loading of Poulsbo DRM driver
-Requires: kmod(psb)
-
-%description -n %{module}-preload
-This package contains configuration files to automatically load the
-DRM driver for the video chipset from the Poulsbo SCH.
 
 %prep
 %setup -q -n %{dname}
@@ -75,12 +67,6 @@ rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/src/%{module}-%{dkms_ver}/
 tar c . | tar x -C %{buildroot}/usr/src/%{module}-%{dkms_ver}/
 
-mkdir -p %{buildroot}%{_sysconfdir}/modprobe.preload.d
-cat > %{buildroot}%{_sysconfdir}/modprobe.preload.d/%{module} <<EOF
-drm-psb
-psb
-EOF
-
 %clean
 rm -rf %{buildroot}
 
@@ -99,7 +85,3 @@ set -x
 %files
 %defattr(-,root,root)
 /usr/src/%{module}-%{dkms_ver}
-
-%files -n %{module}-preload
-%defattr(-,root,root)
-%{_sysconfdir}/modprobe.preload.d/%{module}
