@@ -2,7 +2,7 @@
 %define name dkms-%{module}
 %define version 4.41.1
 %define date 0
-%define release %mkrel 2
+%define release %mkrel 3
 %if %{date}
 %define dkms_ver %{date}-%{release}
 %define sname %{module}-kmd-%{date}
@@ -28,6 +28,8 @@ Patch3: psb-kernel-source-4.41.1-agp_memory.patch
 Patch4: psb-kernel-source-4.41.1-dev_set_name.patch
 # rename drm.ko as drm-psb.ko (and make psb.ko depend on drm-psb)
 Patch5:	psb-kernel-source-4.41.1-drmpsb.patch
+# make udev create device node
+Patch6: psb-kernel-source-4.41.1-devt.patch
 License: GPL
 Group: System/Kernel and hardware
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
@@ -48,6 +50,7 @@ This is a DRM driver for the video chipset from the Poulsbo SCH.
 %patch3 -p1 -b .agp_memory
 %patch4 -p1 -b .dev_set_name
 %patch5 -p1 -b .drmpsb
+%patch6 -p1 -b .devt
 
 cat > dkms.conf <<EOF
 PACKAGE_NAME=%{module}
