@@ -2,7 +2,7 @@
 %define name dkms-%{module}
 %define version 4.41.1
 %define date 0
-%define release %mkrel 3
+%define release %mkrel 4
 %if %{date}
 %define dkms_ver %{date}-%{release}
 %define sname %{module}-kmd-%{date}
@@ -62,6 +62,17 @@ DEST_MODULE_LOCATION[0]=/kernel/drivers/gpu/drm
 DEST_MODULE_LOCATION[1]=/kernel/drivers/gpu/drm
 AUTOINSTALL=yes
 EOF
+
+# rename exported symbols with psb_ prefix
+# so that they don't conflict with original drm module
+prefix=psb_
+exclude_files=drm_compat
+files=$(find -name "*.[ch]" | grep -v $exclude_files)
+rules=
+for symbol in $(grep EXPORT_SYMBOL $files | perl -lne '/^.*EXPORT_SYMBOL(?:|_GPL)\((.*)\);/ and print $1'); do
+  rules="s/\b$symbol\b/$prefix$symbol/g;$rules"
+done
+perl -pi -e $rules $files
 
 %build
 
