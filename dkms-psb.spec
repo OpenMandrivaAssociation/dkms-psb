@@ -2,7 +2,7 @@
 %define name dkms-%{module}
 %define version 4.41.1
 %define date 0
-%define release %mkrel 5
+%define release %mkrel 6
 %if %{date}
 %define dkms_ver %{date}-%{release}
 %define sname %{module}-kmd-%{date}
@@ -32,6 +32,8 @@ Patch5:	psb-kernel-source-4.41.1-drmpsb.patch
 Patch6: psb-kernel-source-4.41.1-devt.patch
 # #51562
 Patch7:	psb-kernel-source-4.41.1-edid-crash.patch
+# fix build on 2.6.32, from gentoo (#56224)
+Patch8:	psb-kernel-source-4.41.1-2.6.32.patch
 License: GPL
 Group: System/Kernel and hardware
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
