@@ -56,6 +56,7 @@ This is a DRM driver for the video chipset from the Poulsbo SCH.
 %patch5 -p1 -b .drmpsb
 %patch6 -p1 -b .devt
 %patch7 -p1 -b .edid
+%patch8 -p1 -b .2.6.32
 
 cat > dkms.conf <<EOF
 PACKAGE_NAME=%{module}
