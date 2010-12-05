@@ -2,7 +2,7 @@
 %define name dkms-%{module}
 %define version 4.41.1
 %define date 0
-%define release %mkrel 6
+%define release %mkrel 7
 %if %{date}
 %define dkms_ver %{date}-%{release}
 %define sname %{module}-kmd-%{date}
