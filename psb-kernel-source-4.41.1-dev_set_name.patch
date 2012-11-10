@@ -1,0 +1,12 @@
+diff -ru psb-kernel-source-4.41.1/drm_sysfs.c psb-kernel-source-4.41.2/drm_sysfs.c
+--- psb-kernel-source-4.41.1/drm_sysfs.c	2009-04-16 05:25:01.000000000 +0200
++++ psb-kernel-source-4.41.2/drm_sysfs.c	2009-08-11 20:18:30.000000000 +0200
+@@ -168,7 +168,7 @@
+ 	 * yet...
+ 	 */
+ 	/* dev->dev.devt = head->device; */
+-	snprintf(dev->dev.bus_id, BUS_ID_SIZE, "card%d", head->minor);
++	dev_set_name(&dev->dev, "card%d", head->minor);
+ 
+ 	err = device_register(&dev->dev);
+ 	if (err) {
