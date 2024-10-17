@@ -37,7 +37,7 @@ Patch8:	psb-kernel-source-4.41.1-2.6.32.patch
 License: GPL
 Group: System/Kernel and hardware
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
-Url: http://git.moblin.org/cgit.cgi/deprecated/psb-kmd/
+Url: https://git.moblin.org/cgit.cgi/deprecated/psb-kmd/
 BuildArch: noarch
 Requires(post): dkms
 Requires(preun): dkms
